@@ -107,6 +107,22 @@ const toDateOnly = (value: string | null | undefined): string => {
   return value ? value.slice(0, 10) : '';
 };
 
+// Realtime is a convenience - every view that uses it also loads its data over
+// HTTP - but .subscribe() can throw synchronously when the browser refuses the
+// WebSocket, and an unhandled throw inside a useEffect unmounts the entire app.
+// That is how a blocked socket turned the whole site into a blank page on iOS
+// Safari (it rejects wss:// unless connect-src lists the scheme explicitly, which
+// vercel.json now does). Containing the failure here keeps a degraded live-update
+// feature from ever taking the site down again.
+const subscribeSafely = (channel: any, label: string): any => {
+  try {
+    return channel.subscribe();
+  } catch (err) {
+    console.error(`Realtime no disponible (${label}): la vista seguirá funcionando, pero sin actualizaciones en vivo.`, err);
+    return null;
+  }
+};
+
 // Web Push requires the VAPID public key as a Uint8Array, not the base64url
 // string it's normally shared as - this is the standard conversion for it.
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
@@ -4994,17 +5010,19 @@ const KitchenView = () => {
   useEffect(() => {
     if (!isAuthed || !supabase) return;
     fetchOrders();
-    const channel = supabase
-      .channel('kitchen-realtime-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pedidos_delivery' }, () => {
-        playOrderNotification();
-        fetchOrders();
-      })
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pedidos_delivery' }, () => {
-        fetchOrders();
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    const channel = subscribeSafely(
+      supabase
+        .channel('kitchen-realtime-channel')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pedidos_delivery' }, () => {
+          playOrderNotification();
+          fetchOrders();
+        })
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pedidos_delivery' }, () => {
+          fetchOrders();
+        }),
+      'cocina'
+    );
+    return () => { if (channel) supabase.removeChannel(channel); };
   }, [isAuthed]);
 
   const advanceStatus = async (orderId: any, newStatus: string) => {
@@ -5472,7 +5490,8 @@ export default function App() {
     if (!supabase) return;
 
     // Realtime postgres updates channel for pedidos_delivery table
-    const channel = supabase
+    const channel = subscribeSafely(
+      supabase
       .channel('delivery-realtime-channel')
       .on(
         'postgres_changes',
@@ -5511,13 +5530,15 @@ export default function App() {
           }
           setAdminOrders((prevOrders) => prevOrders.map((order: any) => order.id === payload.new.id ? payload.new : order));
         }
-      )
-      .subscribe();
+      ),
+      'pedidos'
+    );
 
     // Realtime postgres updates channel for new reservas (table bookings +
     // service reservation requests) - separate channel/tone from delivery
     // orders so the kitchen and front-of-house alerts stay distinguishable.
-    const reservasChannel = supabase
+    const reservasChannel = subscribeSafely(
+      supabase
       .channel('reservas-realtime-channel')
       .on(
         'postgres_changes',
@@ -5536,12 +5557,13 @@ export default function App() {
             return [payload.new, ...prev];
           });
         }
-      )
-      .subscribe();
+      ),
+      'reservas'
+    );
 
     return () => {
-      supabase.removeChannel(channel);
-      supabase.removeChannel(reservasChannel);
+      if (channel) supabase.removeChannel(channel);
+      if (reservasChannel) supabase.removeChannel(reservasChannel);
     };
   }, [isAdmin]);
 
