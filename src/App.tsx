@@ -636,6 +636,7 @@ const translations = {
       extended: '...they manage as a family to take a leap and acquire their own land in Playa Hermosa and build their own new Restaurant. This time larger, more modern and their own. Currently managed by its founder Abraham Víquez and his son Sebastián. It is located on national route 159 in front of the main entrance of Condovac and Villas Sol. Characterized by being the only 100% Costa Rican restaurant with its unique flavors and accessible prices for both foreigners and locals.',
       readMore: 'Read more',
       readLess: 'Read less',
+      tag: 'Beach Luxury Dining',
       src: "/logo/logo.png",
       features: [
         { icon: 'ChefHat', text: 'Artisan Cuisine' },
@@ -5152,7 +5153,11 @@ export default function App() {
   const [savedBloqueos, setSavedBloqueos] = useState<{ fecha: string; servicio_tipo: string }[]>([]);
   const [showBlockedTable, setShowBlockedTable] = useState<boolean>(false);
   const [isBlockedModalOpen, setIsBlockedModalOpen] = useState<boolean>(false);
-  const [blockedList, setBlockedList] = useState<{ fecha: string; servicio_tipo: string; motivo?: string }[]>([]);
+  // 'id' is required on purpose: handleHabilitar deletes by id when it has one and
+  // only falls back to matching on fecha + servicio_tipo when it does not. Leaving
+  // it off the type let one of the three loaders drop it silently, which quietly
+  // downgraded every unblock from that path to the less precise fallback.
+  const [blockedList, setBlockedList] = useState<{ id: string | number; fecha: string; servicio_tipo: string; motivo?: string }[]>([]);
   const [isLoadingBlocked, setIsLoadingBlocked] = useState<boolean>(false);
   const [blockedCount, setBlockedCount] = useState<number>(0);
   const [deletingKeys, setDeletingKeys] = useState<string[]>([]);
@@ -5594,6 +5599,7 @@ export default function App() {
           .order('fecha', { ascending: true });
         if (data) {
           setBlockedList(data.map((b: any) => ({
+            id: b.id,
             fecha: b.fecha,
             servicio_tipo: b.servicio_tipo || 'todos',
             motivo: b.motivo || ''
