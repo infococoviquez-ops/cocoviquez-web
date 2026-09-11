@@ -7210,9 +7210,13 @@ export default function App() {
 
       {/* --- Hero Section --- */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-transparent">
+        {/* poster paints the first frame immediately, so the hero is not a blank
+            box while the video downloads - it is the largest element above the
+            fold, which makes it the page's Largest Contentful Paint. */}
         <video
           ref={heroVideoRef}
           src="/animacion.mp4"
+          poster="/hero-poster.webp"
           autoPlay
           muted
           loop
