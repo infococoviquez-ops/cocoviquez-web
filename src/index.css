@@ -278,3 +278,16 @@ input[type="date"]::-webkit-clear-button {
   scrollbar-width: thin;
   scrollbar-color: #FFD700 transparent;
 }
+
+/* iOS Safari zooms the whole page in when a focused form field's text is under
+   16px, and does not zoom back out: the visitor has to pinch back while filling
+   in a reservation. 16px on small screens prevents it. Left unlayered on purpose:
+   Tailwind v4 utilities live in a cascade layer, so this beats their
+   text-[12px] / text-sm without needing !important. */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}

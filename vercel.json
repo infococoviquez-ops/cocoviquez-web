@@ -1,5 +1,8 @@
 {
   "rewrites": [
+    { "source": "/en", "destination": "/en/index.html" },
+    { "source": "/fr", "destination": "/fr/index.html" },
+    { "source": "/de", "destination": "/de/index.html" },
     { "source": "/cocina", "destination": "/index.html" },
     { "source": "/cocina/:path*", "destination": "/index.html" },
     { "source": "/reset-password", "destination": "/index.html" },

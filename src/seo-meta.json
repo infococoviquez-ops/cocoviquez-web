@@ -1,0 +1,38 @@
+{
+  "siteUrl": "https://cocoviquez.com",
+  "defaultLang": "es",
+  "langs": {
+    "es": {
+      "path": "/",
+      "htmlLang": "es",
+      "ogLocale": "es_CR",
+      "title": "Restaurante Coco Víquez | Playa Hermosa, Guanacaste - Costa Rica",
+      "description": "Restaurante Coco Víquez, comida típica costarricense en Playa Hermosa, Guanacaste. Desayunos, almuerzos, cenas tipo buffet, mariscos y más. Reservas y delivery en línea.",
+      "imageAlt": "Platos servidos en Restaurante Coco Víquez, Playa Hermosa"
+    },
+    "en": {
+      "path": "/en/",
+      "htmlLang": "en",
+      "ogLocale": "en_US",
+      "title": "Coco Víquez Restaurant | Playa Hermosa, Guanacaste - Costa Rica",
+      "description": "Coco Víquez Restaurant: traditional Costa Rican food in Playa Hermosa, Guanacaste. Breakfast, lunch, buffet-style dinners, seafood and more. Online reservations and delivery.",
+      "imageAlt": "Dishes served at Coco Víquez Restaurant, Playa Hermosa"
+    },
+    "fr": {
+      "path": "/fr/",
+      "htmlLang": "fr",
+      "ogLocale": "fr_FR",
+      "title": "Restaurant Coco Víquez | Playa Hermosa, Guanacaste - Costa Rica",
+      "description": "Restaurant Coco Víquez : cuisine typique costaricienne à Playa Hermosa, Guanacaste. Petits-déjeuners, déjeuners, dîners buffet, fruits de mer et plus. Réservations et livraison en ligne.",
+      "imageAlt": "Plats servis au Restaurant Coco Víquez, Playa Hermosa"
+    },
+    "de": {
+      "path": "/de/",
+      "htmlLang": "de",
+      "ogLocale": "de_DE",
+      "title": "Restaurant Coco Víquez | Playa Hermosa, Guanacaste - Costa Rica",
+      "description": "Restaurant Coco Víquez: typisch costa-ricanische Küche in Playa Hermosa, Guanacaste. Frühstück, Mittagessen, Buffet-Abendessen, Meeresfrüchte und mehr. Online-Reservierung und Lieferung.",
+      "imageAlt": "Gerichte im Restaurant Coco Víquez, Playa Hermosa"
+    }
+  }
+}

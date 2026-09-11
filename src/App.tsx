@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from './supabaseClient';
 import { handleServiceQuote } from './utils/serviceActions';
+import seoMeta from './seo-meta.json';
 import { 
   Menu, 
   X, 
@@ -105,6 +106,42 @@ const parseOrderDetails = (order: any): { items: any[]; email: string; paymentMe
 // and display.
 const toDateOnly = (value: string | null | undefined): string => {
   return value ? value.slice(0, 10) : '';
+};
+
+// --- Language routing ---
+// Each language has its own URL (/, /en/, /fr/, /de/) so search engines can index
+// every translation separately. Before this they only ever saw the Spanish page,
+// because switching language never changed the address. vite.config.ts emits a
+// static HTML entry per language with the matching canonical and title; titles
+// and descriptions come from seo-meta.json so the build and the app share one
+// source.
+type SiteLang = 'es' | 'en' | 'fr' | 'de';
+const SUPPORTED_LANGS: readonly SiteLang[] = ['es', 'en', 'fr', 'de'];
+const isSupportedLang = (value: unknown): value is SiteLang =>
+  typeof value === 'string' && (SUPPORTED_LANGS as readonly string[]).includes(value);
+
+const langFromPath = (path: string): SiteLang | null => {
+  const match = path.match(/^\/(en|fr|de)(?:\/|$)/);
+  return match ? (match[1] as SiteLang) : null;
+};
+
+// Only the homepage and its language variants get their URL rewritten on a
+// language switch; admin routes like /cocina keep their address.
+const LOCALIZABLE_PATH = /^\/(?:(?:en|fr|de)\/?)?$/;
+
+const syncDocumentLanguage = (lang: SiteLang): void => {
+  const meta = seoMeta.langs[lang];
+  document.documentElement.lang = meta.htmlLang;
+  document.title = meta.title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', seoMeta.siteUrl + meta.path);
+
+  const { pathname, search, hash } = window.location;
+  if (LOCALIZABLE_PATH.test(pathname) && pathname !== meta.path) {
+    // replaceState rather than pushState: changing language is not navigation,
+    // and Back should leave the page instead of stepping through languages.
+    window.history.replaceState(window.history.state, '', meta.path + search + hash);
+  }
 };
 
 // Realtime is a convenience - every view that uses it also loads its data over
@@ -2629,7 +2666,7 @@ const ServiceCard: React.FC<{
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full bg-[#0b131f]/60 text-white placeholder-gray-650 border border-[#F27F57]/30 focus:border-[#F27F57] rounded-lg px-3 py-1.5 text-xs shadow-[0_0_10px_rgba(242,127,87,0.05)] transition-all duration-300 outline-none nombre-input"
+                  className="w-full bg-[#0b131f]/60 text-white placeholder-gray-650 border border-[#F27F57]/30 focus:border-[#F27F57] rounded-lg px-3 py-2.5 md:py-1.5 text-xs shadow-[0_0_10px_rgba(242,127,87,0.05)] transition-all duration-300 outline-none nombre-input"
                 />
               </div>
 
@@ -2643,7 +2680,7 @@ const ServiceCard: React.FC<{
                   value={emailCliente}
                   onChange={(e) => setEmailCliente(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full bg-[#0b131f]/60 text-white placeholder-gray-650 border border-[#F27F57]/30 focus:border-[#F27F57] rounded-lg px-3 py-1.5 text-xs shadow-[0_0_10px_rgba(242,127,87,0.05)] transition-all duration-300 outline-none correo-input"
+                  className="w-full bg-[#0b131f]/60 text-white placeholder-gray-650 border border-[#F27F57]/30 focus:border-[#F27F57] rounded-lg px-3 py-2.5 md:py-1.5 text-xs shadow-[0_0_10px_rgba(242,127,87,0.05)] transition-all duration-300 outline-none correo-input"
                 />
               </div>
 
@@ -5147,9 +5184,19 @@ const KitchenView = () => {
 };
 
 export default function App() {
+  // The URL decides the language first, so a shared /fr/ link opens in French.
+  // The saved preference only applies on the bare homepage, where the language
+  // effect then moves the address to match.
   const [lang, setLang] = useState<'es' | 'en' | 'fr' | 'de'>(() => {
-    const saved = localStorage.getItem('coco_viquez_lang');
-    return (saved as any) || 'es';
+    const fromPath = langFromPath(window.location.pathname);
+    if (fromPath) return fromPath;
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem('coco_viquez_lang');
+    } catch {
+      // Storage can be blocked in strict privacy modes; fall back to the default.
+    }
+    return isSupportedLang(saved) ? saved : 'es';
   });
 
   const heroVideoRef = useAutoplayVideo();
@@ -6010,7 +6057,12 @@ export default function App() {
   }, [selectedAdminService, savedBloqueos]);
 
   useEffect(() => {
-    localStorage.setItem('coco_viquez_lang', lang);
+    try {
+      localStorage.setItem('coco_viquez_lang', lang);
+    } catch {
+      // Storage blocked: the URL still carries the language, so nothing is lost.
+    }
+    syncDocumentLanguage(lang);
   }, [lang]);
 
   useEffect(() => {
