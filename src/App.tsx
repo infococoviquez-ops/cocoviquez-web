@@ -197,6 +197,7 @@ const translations = {
       order: 'Pedir para Llevar'
     },
     hero: {
+      seoHeading: 'Restaurante Coco Víquez, comida típica costarricense en Playa Hermosa, Guanacaste',
       line1: 'De nuestro servicio nace la amistad',
       line2: 'Pura vida, vida pura',
       subtitle: 'Una experiencia gastronómica de lujo en el corazón de Playa Hermosa, Guanacaste.'
@@ -208,7 +209,7 @@ const translations = {
       readMore: 'Seguir leyendo',
       readLess: 'Leer menos',
       tag: 'Beach Luxury Dining',
-      src: "/logo/logo.png",
+      src: "/logo/logo.webp",
       features: [
         { icon: 'ChefHat', text: 'Cocina Artesanal' },
         { icon: 'MapPin', text: 'Fácil Acceso' },
@@ -642,6 +643,7 @@ const translations = {
       order: 'Order Takeaway'
     },
     hero: {
+      seoHeading: 'Coco Víquez Restaurant, traditional Costa Rican food in Playa Hermosa, Guanacaste',
       line1: 'From our service, friendship is born',
       line2: 'Pura vida, vida pura',
       subtitle: 'A luxury dining experience in the heart of Playa Hermosa, Guanacaste.'
@@ -653,7 +655,7 @@ const translations = {
       readMore: 'Read more',
       readLess: 'Read less',
       tag: 'Beach Luxury Dining',
-      src: "/logo/logo.png",
+      src: "/logo/logo.webp",
       features: [
         { icon: 'ChefHat', text: 'Artisan Cuisine' },
         { icon: 'MapPin', text: 'Easy Access' },
@@ -1085,6 +1087,7 @@ const translations = {
       order: 'Commander'
     },
     hero: {
+      seoHeading: 'Restaurant Coco Víquez, cuisine typique costaricienne à Playa Hermosa, Guanacaste',
       line1: 'De notre service naît l\'amitié',
       line2: 'Pura vida, vida pura',
       subtitle: 'Une expérience gastronomique de luxe au cœur de Playa Hermosa, Guanacaste.'
@@ -1096,7 +1099,7 @@ const translations = {
       readMore: 'Lire la suite',
       readLess: 'Lire moins',
       tag: 'Beach Luxury Dining',
-      src: "/logo/logo.png",
+      src: "/logo/logo.webp",
       features: [
         { icon: 'ChefHat', text: 'Cuisine Artisanale' },
         { icon: 'MapPin', text: 'Facile d’Accès' },
@@ -1469,6 +1472,7 @@ const translations = {
       order: 'Bestellen'
     },
     hero: {
+      seoHeading: 'Restaurant Coco Víquez, typisch costa-ricanische Küche in Playa Hermosa, Guanacaste',
       line1: 'Aus unserem Service entsteht Freundschaft',
       line2: 'Pura vida, vida pura',
       subtitle: 'Ein luxuriöses gastronomisches Erlebnis im Herzen von Playa Hermosa, Guanacaste.'
@@ -1480,7 +1484,7 @@ const translations = {
       readMore: 'Weiterlesen',
       readLess: 'Weniger lesen',
       tag: 'Beach Luxury Dining',
-      src: "/logo/logo.png",
+      src: "/logo/logo.webp",
       features: [
         { icon: 'ChefHat', text: 'Handwerkliche Küche' },
         { icon: 'MapPin', text: 'Leichter Zugang' },
@@ -1847,12 +1851,12 @@ const translations = {
 const ArtisanalIcon = ({ id }: { id: string }) => {
   const images: Record<string, string> = {
     catering: '/servicios/Catering Services.jpg', // Macro close-up of buffet line
-    parrilladas: '/servicios/servicio de parrilla.png', // Chef's hands grilling skewers
+    parrilladas: '/servicios/servicio de parrilla.webp', // Chef's hands grilling skewers
     eventos: '/servicios/evento.jpeg', // Candlelit table with "25" sign
     chef: '/servicios/servicio chef.jpeg', // Chef with yellow cap and denim apron
-    clase: '/servicios/clase de cocina.png', // Hands mixing ingredients
-    fonda: '/servicios/fonda masiva.png.png', // Massive buffet line setup
-    turismo: '/servicios/turismo y excursiones.png' // Luxury tour bus
+    clase: '/servicios/clase de cocina.webp', // Hands mixing ingredients
+    fonda: '/servicios/fonda masiva.webp', // Massive buffet line setup
+    turismo: '/servicios/turismo y excursiones.webp' // Luxury tour bus
   };
 
   // Custom styling for specific images to ensure the best composition within the circle
@@ -1913,7 +1917,7 @@ const ArtisanalIcon = ({ id }: { id: string }) => {
 
   return (
     <div className="w-full h-full rounded-full border-[6px] border-white shadow-xl overflow-hidden bg-white transition-transform duration-500 relative">
-      <img 
+      <img loading="lazy" decoding="async" 
         src={images[id] || images.catering} 
         alt={id} 
         className={`w-full h-full object-cover ${styles.className}`}
@@ -2006,8 +2010,8 @@ const TableMap = ({
       onClick={onOpenModal}
       className={`relative w-full bg-ocean/5 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group cursor-zoom-in`}
     >
-      <img
-        src="/mapa/mapa.jpg"
+      <img loading="lazy" decoding="async"
+        src="/mapa/mapa.webp"
         alt={legendLabel}
         className="reservation-map-fluid w-full h-auto opacity-95 transition-all duration-700 group-hover:scale-105"
       />
@@ -2064,8 +2068,8 @@ const MapModal = ({
                 <X size={28} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
               </button>
             </div>
-            <img 
-              src="/mapa/mapa.jpg" 
+            <img loading="lazy" decoding="async" 
+              src="/mapa/mapa.webp" 
               alt="Restaurante Coco Víquez Floor Plan - Vista Ampliada" 
               className="w-full h-auto object-contain block"
             />
@@ -3538,8 +3542,8 @@ const Cart = ({ items, onUpdate, onRemove, onConfirm, isOpen, setIsOpen, t }: {
                   <X size={20} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
               </div>
-              <img
-                src="/delivery-map.png"
+              <img loading="lazy" decoding="async"
+                src="/delivery-map.webp"
                 alt={ct.mapAlt}
                 className="w-full h-auto object-contain rounded-2xl block"
                 referrerPolicy="no-referrer"
@@ -4812,7 +4816,7 @@ const GalleryModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
                 }}
                 className="aspect-square rounded-2xl overflow-hidden cursor-pointer group relative bg-white/5"
               >
-                <img 
+                <img loading="lazy" decoding="async" 
                   src={src} 
                   alt={`${activeCategory} ${idx + 1}`}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -7073,7 +7077,7 @@ export default function App() {
               >
                 <a href="#" className="block">
                   <img 
-                    src="/logo/logo.png" 
+                    src="/logo/logo.webp" 
                     alt="Restaurante Víquez" 
                     className={`h-auto w-auto object-contain transition-all duration-400 brightness-110 ${
                       isScrolled ? 'max-h-[50px] md:max-h-[60px]' : 'max-h-[75px] md:max-h-[95px]'
@@ -7133,7 +7137,7 @@ export default function App() {
             >
               <div className="flex justify-between items-center mb-12">
                 <img 
-                  src="/logo/logo.png" 
+                  src="/logo/logo.webp" 
                   alt="Logo Coco Víquez" 
                   className="h-12 w-auto object-contain brightness-110"
                   referrerPolicy="no-referrer"
@@ -7220,7 +7224,13 @@ export default function App() {
 
         <div className="relative z-10 text-center px-6 max-w-5xl">
           <div className="flex flex-col items-center space-y-4 mb-12">
+            {/* The slogan is the hero visually, but on its own it tells a search
+                engine (and a screen reader) nothing about what this business is or
+                where it is - and the h1 is the strongest heading signal on a page.
+                The descriptive line is read but not shown, so the design is
+                unchanged while the heading finally says what the site is about. */}
             <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold text-sand tracking-tight leading-tight">
+              <span className="sr-only">{t.hero.seoHeading} — </span>
               {t.hero.line1}
             </h1>
             <div className="w-16 md:w-24 h-0.5 bg-coral/50 my-2" />
@@ -7250,14 +7260,14 @@ export default function App() {
               className="w-full md:w-1/2 relative"
             >
               <div className="asymmetric-shape overflow-hidden rounded-2xl shadow-2xl">
-                <img
-                  src="/historia.png"
+                <img loading="lazy" decoding="async"
+                  src="/historia.webp"
                   alt="Restaurante Víquez"
                   className="w-full h-[500px] object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 glass bg-coral/20 p-8 rounded-2xl hidden md:block">
-                <img src={t.about.src} className="h-10 w-auto object-contain mx-auto" alt="Logo" />
+                <img loading="lazy" decoding="async" src={t.about.src} className="h-10 w-auto object-contain mx-auto" alt="Logo" />
               </div>
             </motion.div>
 
@@ -7491,7 +7501,7 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.2 }}
-                  src="/logo/logo.png" 
+                  src="/logo/logo.webp" 
                   alt="Logo Coco Víquez" 
                   className="w-60 h-auto object-contain drop-shadow-2xl"
                 />
@@ -8059,7 +8069,7 @@ export default function App() {
                   </p>
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-sand shadow-md aspect-square bg-ocean/10">
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={t.testimonials.items[testimonialIdx].photo} 
                         alt={t.testimonials.items[testimonialIdx].name}
                         className="w-full h-full object-cover"
@@ -8125,8 +8135,8 @@ export default function App() {
         <div className="container mx-auto px-6 flex flex-col items-center">
           {/* Logo Section */}
           <div className="mb-20">
-            <img 
-              src="/logo/logo.png" 
+            <img loading="lazy" decoding="async" 
+              src="/logo/logo.webp" 
               alt="Logo Coco Víquez" 
               className="h-32 md:h-48 w-auto object-contain"
               referrerPolicy="no-referrer"

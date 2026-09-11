@@ -24,8 +24,10 @@ self.addEventListener('push', (event) => {
   const title = payload.title || 'Coco Víquez';
   const options = {
     body: payload.body || '',
-    icon: '/logo/logo.png',
-    badge: '/logo/logo.png',
+    // PNG, not WebP: notification icons are rendered by the OS, and several
+    // platforms still ignore WebP there.
+    icon: '/logo/favicon.png',
+    badge: '/logo/favicon.png',
     data: { url: payload.url || '/' },
     tag: payload.tag || 'coco-viquez-notification',
     renotify: true,
