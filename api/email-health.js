@@ -34,8 +34,6 @@ export default async function handler(req, res) {
     senderVar: process.env.MAIL_FROM ? 'MAIL_FROM' : 'valor por defecto en el codigo (MAIL_FROM no esta definida)',
     fromAddress,
     fromDomain,
-    // Surfaced only to explain why it is ignored - it is a Gmail address.
-    orderEmailFromIgnorada: process.env.ORDER_EMAIL_FROM ? true : false,
   };
 
   if (FREE_MAIL_DOMAINS.includes(fromDomain)) {
