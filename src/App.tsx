@@ -8063,7 +8063,7 @@ export default function App() {
                 aria-label="Open in Google Maps"
               />
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.407981180219!2d-85.6739663!3d10.5775653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9e2a1a6340a9a9%3A0xdb69f46dde6010cf!2sCoco%20Viquez!5e0!3m2!1sen!2scr!4v1712435678901" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.407981180219!2d-85.6713914!3d10.5775653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9e2a1a6340a9a9%3A0xdb69f46dde6010cf!2sCoco%20Viquez!5e0!3m2!1sen!2scr!4v1712435678901" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
