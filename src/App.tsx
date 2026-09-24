@@ -8259,19 +8259,31 @@ export default function App() {
               </p>
             </div>
             <div className="flex items-center space-x-8">
-              <button 
+              <button
                 onClick={() => setLegalModal({ isOpen: true, type: 'terms' })}
                 className="text-[10px] md:text-xs text-gray-500 hover:text-white transition-colors uppercase tracking-widest font-medium"
               >
                 Términos y Condiciones
               </button>
-              <button 
+              <button
                 onClick={() => setLegalModal({ isOpen: true, type: 'privacy' })}
                 className="text-[10px] md:text-xs text-gray-500 hover:text-white transition-colors uppercase tracking-widest font-medium"
               >
                 Política de Privacidad
               </button>
             </div>
+          </div>
+
+          {/* Powered by Section */}
+          <div className="mt-8 pt-8 border-t border-gray-700/30">
+            <a
+              href="https://www.dgreatai.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] md:text-xs text-gray-500 hover:text-[#F27F57] transition-colors duration-300 tracking-widest font-medium"
+            >
+              power by AlexDgreat
+            </a>
           </div>
 
           {/* Red Logout Button - Positioned at the bottom-left of the footer */}
