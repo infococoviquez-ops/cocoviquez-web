@@ -8275,14 +8275,18 @@ export default function App() {
           </div>
 
           {/* Powered by Section */}
-          <div className="mt-8 pt-8 border-t border-gray-700/30">
+          <div className="mt-8 pt-8 border-t border-gray-700/30 flex justify-center">
             <a
               href="https://www.dgreatai.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] md:text-xs text-gray-500 hover:text-[#F27F57] transition-colors duration-300 tracking-widest font-medium"
+              className="group flex items-center gap-3 px-4 py-2 rounded-lg text-xs md:text-sm text-gray-400 hover:text-[#F27F57] transition-all duration-300 hover:bg-white/5 cursor-pointer"
             >
-              power by AlexDgreat
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F27F57] group-hover:scale-125 transition-transform duration-300" />
+              <span className="font-semibold tracking-wide group-hover:scale-105 origin-left transition-transform duration-300">
+                power by AlexDgreat
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F27F57] group-hover:scale-125 transition-transform duration-300" />
             </a>
           </div>
 
