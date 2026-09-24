@@ -8274,19 +8274,67 @@ export default function App() {
             </div>
           </div>
 
-          {/* Powered by Section */}
+          {/* Powered by DGREAT.AI Logo */}
           <div className="mt-8 pt-8 border-t border-gray-700/30 flex justify-center">
             <a
               href="https://www.dgreatai.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-4 py-2 rounded-lg text-xs md:text-sm text-gray-400 hover:text-[#F27F57] transition-all duration-300 hover:bg-white/5 cursor-pointer"
+              className="group relative"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F27F57] group-hover:scale-125 transition-transform duration-300" />
-              <span className="font-semibold tracking-wide group-hover:scale-105 origin-left transition-transform duration-300">
-                power by AlexDgreat
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F27F57] group-hover:scale-125 transition-transform duration-300" />
+              <style>{`
+                @keyframes dgreatRotate {
+                  0% { transform: rotateZ(0deg); }
+                  100% { transform: rotateZ(360deg); }
+                }
+                @keyframes dgreatGlow {
+                  0%, 100% { filter: drop-shadow(0 0 2px rgba(34, 197, 94, 0.3)); }
+                  50% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.8)); }
+                }
+                @keyframes dgreatPulse {
+                  0%, 100% { opacity: 1; }
+                  50% { opacity: 0.7; }
+                }
+                .dgreat-logo:hover {
+                  animation: dgreatRotate 3s linear infinite, dgreatGlow 2s ease-in-out infinite, dgreatPulse 3s ease-in-out infinite;
+                }
+                .dgreat-logo {
+                  transition: transform 0.3s ease;
+                }
+                .dgreat-logo:hover {
+                  transform: scale(1.1);
+                }
+              `}</style>
+              <svg
+                viewBox="0 0 500 100"
+                width="200"
+                height="40"
+                xmlns="http://www.w3.org/2000/svg"
+                className="dgreat-logo"
+              >
+                {/* Left angle bracket */}
+                <text x="20" y="70" fontSize="60" fontWeight="bold" fill="#8B5CF6" fontFamily="Arial, sans-serif">
+                  &lt;
+                </text>
+
+                {/* DGREAT text */}
+                <text x="70" y="70" fontSize="50" fontWeight="bold" fill="white" fontFamily="Arial, sans-serif" letterSpacing="2">
+                  DGREAT
+                </text>
+
+                {/* Green dot */}
+                <circle cx="265" cy="35" r="7" fill="#22C55E" />
+
+                {/* AI text */}
+                <text x="290" y="70" fontSize="50" fontWeight="bold" fill="white" fontFamily="Arial, sans-serif" letterSpacing="2">
+                  AI
+                </text>
+
+                {/* Right angle bracket */}
+                <text x="450" y="70" fontSize="60" fontWeight="bold" fill="#8B5CF6" fontFamily="Arial, sans-serif">
+                  &gt;
+                </text>
+              </svg>
             </a>
           </div>
 
