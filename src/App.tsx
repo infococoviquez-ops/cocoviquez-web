@@ -8276,49 +8276,36 @@ export default function App() {
 
           {/* Powered by DGREAT.AI Logo */}
           <div className="mt-8 pt-8 border-t border-gray-700/30 flex justify-center">
-            <style>{`
-              @keyframes dgreatRotate {
-                0% { transform: rotateZ(0deg); }
-                100% { transform: rotateZ(360deg); }
-              }
-              @keyframes dgreatGlow {
-                0%, 100% { filter: drop-shadow(0 0 2px rgba(34, 197, 94, 0.3)); }
-                50% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.8)); }
-              }
-              @keyframes dgreatPulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.7; }
-              }
-              .dgreat-logo-link {
-                display: inline-block;
-                transition: transform 0.3s ease;
-              }
-              .dgreat-logo-link:hover {
-                animation: dgreatRotate 3s linear infinite, dgreatGlow 2s ease-in-out infinite, dgreatPulse 3s ease-in-out infinite;
-                transform: scale(1.1);
-              }
-            `}</style>
             <a
               href="https://www.dgreatai.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="dgreat-logo-link"
+              className="group inline-flex items-center gap-2 text-white font-bold text-lg tracking-widest transition-all duration-300 hover:scale-110 hover:drop-shadow-lg hover:drop-shadow-[0_0_12px_rgba(34,197,94,0.6)]"
+              style={{
+                animation: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.animation = 'rotate 3s linear infinite, pulse 3s ease-in-out infinite';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.animation = 'none';
+              }}
             >
-              <svg viewBox="0 0 500 100" width="200" height="40" xmlns="http://www.w3.org/2000/svg">
-                <text x="20" y="70" fontSize="60" fontWeight="bold" fill="#8B5CF6" fontFamily="Arial, sans-serif">
-                  {'<'}
-                </text>
-                <text x="70" y="70" fontSize="50" fontWeight="bold" fill="white" fontFamily="Arial, sans-serif" letterSpacing="2">
-                  DGREAT
-                </text>
-                <circle cx="265" cy="35" r="7" fill="#22C55E" />
-                <text x="290" y="70" fontSize="50" fontWeight="bold" fill="white" fontFamily="Arial, sans-serif" letterSpacing="2">
-                  AI
-                </text>
-                <text x="450" y="70" fontSize="60" fontWeight="bold" fill="#8B5CF6" fontFamily="Arial, sans-serif">
-                  {'>'}
-                </text>
-              </svg>
+              <style>{`
+                @keyframes rotate {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+                @keyframes pulse {
+                  0%, 100% { opacity: 1; }
+                  50% { opacity: 0.7; }
+                }
+              `}</style>
+              <span style={{ color: '#8B5CF6' }}>&lt;</span>
+              <span>DGREAT</span>
+              <span style={{ color: '#22C55E' }}>•</span>
+              <span>AI</span>
+              <span style={{ color: '#8B5CF6' }}>&gt;</span>
             </a>
           </div>
 
